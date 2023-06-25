@@ -1,0 +1,24 @@
+.cardDesign{
+    width: 50vw;
+    background-color: #233;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    min-height:  90px;
+}
+.date{
+    color: aliceblue;
+    align-items: end;
+    font-size:13px 
+}
+.heading{
+    color: aliceblue;
+    font-weight: bolder;
+    font-size: 30px;
+}
+
+.subheading{
+    color: aliceblue;
+font-size: 17px;
+
+}
