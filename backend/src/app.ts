@@ -2,8 +2,15 @@ import express from 'express';
 import mongoose from 'mongoose'
 import session from "express-session";
 import cors from "cors";
+import dotenv from 'dotenv';
 
-mongoose.connect('mongodb://127.0.0.1:27017/todoProj')
+dotenv.config();
+
+
+
+
+
+mongoose.connect(`mongodb+srv://kioken:${process.env.PASSWORD}@cluster0.0gedaos.mongodb.net/todoProj`)
 
 
 
@@ -37,11 +44,11 @@ const User = mongoose.model("User",new mongoose.Schema({
 
 //// registration route 
 app.post('/register', async (req,res)=>{
-  const ok =await User.findOne({userName:req.body.userName}).then((user)=>{
+  const user_result =await User.findOne({userName:req.body.userName}).then((user)=>{
     return user;
   })
-  // console.log(ok);
-    if(!ok){
+  
+    if(!user_result){
 
       const info = new User({
         userName:req.body.userName,
@@ -98,12 +105,12 @@ app.post('/login',async (req,res)=>{
 
 
 app.post('/dashboard',async (req,res)=>{
-const ok =await User.findOne({id:req.body.ok});
-if(ok){
+const user_result =await User.findOne({id:req.body.location});
+if(user_result){
   res.send({
     data:{
-      username:ok.userName,
-      list:ok.EntryItem
+      username:user_result.userName,
+      list:user_result.EntryItem
     }
   })
 }
@@ -116,16 +123,16 @@ else{
 
 app.patch("/dashboard",async (req,res)=>{
   
-  const ok = await User.findOneAndUpdate(
+  const user_result = await User.findOneAndUpdate(
     {id:req.body.id},{$push:{EntryItem:{heading:req.body.subheading,subheading:req.body.subheading,date:req.body.date}}})
-  console.log(ok);
+  console.log(user_result);
 
 })
 app.put("/dashboard",async (req,res)=>{
   
-  const ok = await User.findOneAndUpdate(
+  const user_result = await User.findOneAndUpdate(
     {id:req.body.id},{$pull:{EntryItem:{heading:req.body.subheading,subheading:req.body.subheading}}})
-  console.log(ok);
+  console.log(user_result);
 
 })
 

@@ -23,7 +23,7 @@ export default function Todo(){
     useEffect(()=>{
         async function geting(){
             const d =await server.post('./dashboard',{
-                ok:location.state
+                location:location.state
             });
             setData(d.data);
             setlist(d.data.data.list)
